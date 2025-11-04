@@ -1,8 +1,11 @@
-module com.teera.startpoint.teera {
+module com.teera.startpoint {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.prefs;
+    requires java.desktop;
+    requires javafx.graphics;
+    requires java.logging;
 
-
-    opens com.teera.startpoint.teera to javafx.fxml;
-    exports com.teera.startpoint.teera;
+    opens com.teera.startpoint to javafx.fxml;
+    exports com.teera.startpoint;
 }

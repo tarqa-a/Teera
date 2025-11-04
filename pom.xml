@@ -7,7 +7,7 @@
     <groupId>com.teera.startpoint</groupId>
     <artifactId>Teera</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Teera</name>
+    <name>_1_Teera</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.teera.startpoint.teera/com.teera.startpoint.teera.Main
+                            <mainClass>com.teera.startpoint/com.teera.startpoint.WindowsShowcase
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
