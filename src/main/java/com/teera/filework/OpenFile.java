@@ -35,6 +35,8 @@ public class OpenFile
                     {
                         // Читаем
                         UserFileProcessor.read();
+                        // Добавляем интервалы
+                        InputContentArea.setDefaultStyle();
                     } catch (IOException | InterruptedException e)
                     {
                         throw new RuntimeException(e);

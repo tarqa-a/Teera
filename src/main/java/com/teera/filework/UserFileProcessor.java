@@ -36,6 +36,8 @@ public class UserFileProcessor
      */
     public static Appendable read() throws IOException, InterruptedException
     {
+        userFileContent = new StringBuilder();
+
         Thread thread = new Thread(() ->
         {
             try (Scanner scanner = new Scanner(userFile, StandardCharsets.UTF_8))

@@ -11,10 +11,10 @@ import javafx.scene.layout.VBox;
 // Кнопка или просто оболочка?
 public class ProgramFormatSetter
 {
-    public static final int DEFAULT_LEADING = 10;
+    public static final double DEFAULT_LEADING = 0.5;
 
     private static Button formatSetterButton = action();
-    private static int leading;
+    private static double leading;
     private static Label fsLabel;
 
     private static Button action()
@@ -22,9 +22,9 @@ public class ProgramFormatSetter
         Button fsButton = new Button("Настройка");
         fsButton.setOnAction(actionEvent ->
         {
-            leading = Integer.parseInt(Pref.getPreferences().get(Pref.LEADING, String.valueOf(DEFAULT_LEADING)));
+            leading = Double.parseDouble(Pref.getPreferences().get(Pref.LEADING, String.valueOf(DEFAULT_LEADING)));
             fsLabel = new Label("Интервал: " + leading);
-            fsLabel.setFont(WindowsShowcase.APTOS_BOLD_FONT);
+            fsLabel.setFont(WindowsShowcase.APTOS_FONT);
 
             Dialog<Void> dialog = new Dialog<>();
             DialogPane dialogPane = dialog.getDialogPane();
@@ -39,29 +39,33 @@ public class ProgramFormatSetter
 
             improveButton.setOnAction(ae ->
             {
-                leading += 1;
-                fsLabel.setText("Интервал: " + leading);
-
-                if (leading == 99)
+                if (leading == 4)
                 {
-                    leading = 9;
+                    leading = 0.5;
+                } else
+                {
+                    leading += 0.5;
                 }
+
+                fsLabel.setText("Интервал: " + leading);
             });
 
             decreaseButton.setOnAction(ae ->
             {
-                if (leading > 1)
+                if (leading != 0.5)
                 {
-                    leading -= 1;
-                    fsLabel.setText("Интервал: " + leading);
+                    leading -= 0.5;
+                } else {
+                    leading = 4;
                 }
+                fsLabel.setText("Интервал: " + leading);
             });
 
             Button applyButton = new Button("Применить");
 
             applyButton.setOnAction(ae ->
             {
-                InputContentArea.setLeading(leading);
+                InputContentArea.setAreaLeading(leading);
                 Pref.getPreferences().put(Pref.LEADING, String.valueOf(leading));
                 dialog.setResult(null);
                 dialog.close();

@@ -55,7 +55,7 @@ public class UnsaveOpen
             // Здесь можно сделать флажок "больше не спрашивать"
             hBox.getChildren().addAll(unsaveButton, cancelButton);
             Label label = new Label("Изменения не сохранятся. Выйти?");
-            label.setFont(WindowsShowcase.APTOS_BOLD_FONT);
+            label.setFont(WindowsShowcase.APTOS_FONT);
             vBox.getChildren().addAll(label, hBox);
 
             dialogPane.setContent(vBox);

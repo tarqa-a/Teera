@@ -40,3 +40,5 @@ build/
 
 ### logs (debug) ###
 src/main/java/com/teera/debug
+### notes ###
+src/main/java/com/teera/startpoint/notes

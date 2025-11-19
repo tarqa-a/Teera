@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -32,7 +31,7 @@ import java.util.concurrent.ExecutionException;
 
 public class WindowsShowcase extends Application
 {
-    public static final Font APTOS_BOLD_FONT = Font.font("Aptos", FontWeight.BOLD, 16);
+    public static final Font APTOS_FONT = Font.font("Aptos", 16);
 
     private static Stage mainstage;
 
@@ -84,16 +83,13 @@ public class WindowsShowcase extends Application
                         Pref.getPreferences().put(Pref.FILE_CONTENT, content);
 
                         // Изменения обозначаем звездочкой
-                        if (!getStage().getTitle().contains("*")) WindowsShowcase.getStage().setTitle("*" + getStage().getTitle());
+                        if (getStage() != null && !getStage().getTitle().contains("*")) WindowsShowcase.getStage().setTitle("*" + getStage().getTitle());
                     }
                 });
 
         // Стиль поля ввода создается отдельным методом, поскольку
         // оно заключено в свою статическую оболочку (в отличие от кнопок);
         InputContentArea.setDefaultStyle();
-
-        InputContentArea.setLeading(Integer.parseInt(Pref.getPreferences().get(Pref.LEADING,
-                String.valueOf(ProgramFormatSetter.DEFAULT_LEADING))));
     }
 
     @Override
@@ -189,7 +185,7 @@ public class WindowsShowcase extends Application
         while (iterator.hasNext())
         {
             Button el = iterator.next();
-            el.setFont(APTOS_BOLD_FONT);
+            el.setFont(APTOS_FONT);
             el.setFocusTraversable(false);
         }
 
