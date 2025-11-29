@@ -11,10 +11,10 @@ import javafx.scene.layout.VBox;
 // Кнопка или просто оболочка?
 public class ProgramFormatSetter
 {
-    public static final double DEFAULT_LEADING = 0.5;
+    public static final double DEFAULT_LEADING = 0;
 
     private static Button formatSetterButton = action();
-    private static double leading;
+    private static int leading;
     private static Label fsLabel;
 
     private static Button action()
@@ -22,7 +22,7 @@ public class ProgramFormatSetter
         Button fsButton = new Button("Настройка");
         fsButton.setOnAction(actionEvent ->
         {
-            leading = Double.parseDouble(Pref.getPreferences().get(Pref.LEADING, String.valueOf(DEFAULT_LEADING)));
+            leading = Integer.parseInt(Pref.getPreferences().get(Pref.LEADING, String.valueOf(DEFAULT_LEADING)));
             fsLabel = new Label("Интервал: " + leading);
             fsLabel.setFont(WindowsShowcase.APTOS_FONT);
 
@@ -39,12 +39,12 @@ public class ProgramFormatSetter
 
             improveButton.setOnAction(ae ->
             {
-                if (leading == 4)
+                if (leading == 30)
                 {
-                    leading = 0.5;
+                    leading = 0;
                 } else
                 {
-                    leading += 0.5;
+                    leading += 5;
                 }
 
                 fsLabel.setText("Интервал: " + leading);
@@ -52,11 +52,11 @@ public class ProgramFormatSetter
 
             decreaseButton.setOnAction(ae ->
             {
-                if (leading != 0.5)
+                if (leading != 0)
                 {
-                    leading -= 0.5;
+                    leading -= 5;
                 } else {
-                    leading = 4;
+                    leading = 30;
                 }
                 fsLabel.setText("Интервал: " + leading);
             });

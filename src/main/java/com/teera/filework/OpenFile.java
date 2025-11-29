@@ -1,5 +1,6 @@
 package com.teera.filework;
 
+import com.teera.debug.ProgramLog;
 import com.teera.startpoint.InputContentArea;
 import com.teera.startpoint.WindowsShowcase;
 import javafx.stage.FileChooser;
@@ -8,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
 
 public class OpenFile
 {
@@ -27,7 +29,6 @@ public class OpenFile
             {
                 // Инициализируем
                 UserFileProcessor.init(chooseFile());
-
                 // Если выбор сделан
                 if (!UserFileProcessor.getUserFileName().isEmpty())
                 {
@@ -36,13 +37,17 @@ public class OpenFile
                         // Читаем
                         UserFileProcessor.read();
                         // Добавляем интервалы
+                        ProgramLog.logger.fine("Заходит в применение стиля");
                         InputContentArea.setDefaultStyle();
+                        ProgramLog.logger.fine("Вышел из применения стиля!");
                     } catch (IOException | InterruptedException e)
                     {
                         throw new RuntimeException(e);
                     }
                     // Устанавливаем на место поля ввода
-                    InputContentArea.getArea().setText(UserFileProcessor.getContent().toString());
+                    ProgramLog.logger.fine("" + UserFileProcessor.getContent().toString().isEmpty());
+
+                    InputContentArea.getArea().replaceText(UserFileProcessor.getContent().toString());
 
                     // Устанавливаем название
                     WindowsShowcase.getStage().setTitle(UserFileProcessor.getUserFileName());

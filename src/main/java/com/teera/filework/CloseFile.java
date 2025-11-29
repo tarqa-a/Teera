@@ -26,7 +26,8 @@ public class CloseFile
             if (result)
             {
                 // Устанавливаем на место поля ввода
-                InputContentArea.getArea().setText("");
+                InputContentArea.getArea().clear();
+                UserFileProcessor.init(null);
 
                 // Устанавливаем название
                 WindowsShowcase.getStage().setTitle("Безымянный");

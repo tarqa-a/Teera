@@ -1,14 +1,16 @@
 package com.teera.startpoint;
 
-import com.teera.debug.ProgramLog;
+import static com.teera.debug.ProgramLog.logger;
+
+import javafx.geometry.Insets;
+import org.fxmisc.richtext.InlineCssTextArea;
 import com.teera.filework.Pref;
 import com.teera.filework.UserFileProcessor;
 import com.teera.format.ProgramFormatSetter;
-import javafx.scene.Node;
-import javafx.scene.control.TextArea;
+
 public class InputContentArea
 {
-    private static TextArea textArea;
+    private static InlineCssTextArea styledTextArea;
 
     // Инициализация как только сможем загрузить содержание файла
     public static void init()
@@ -21,37 +23,39 @@ public class InputContentArea
         {
             text = UserFileProcessor.getContent().toString();
         }
-        textArea = new TextArea(text);
+
+        styledTextArea = new InlineCssTextArea(text);
     }
 
     // Добавление textArea в основное окно
-    public static TextArea getArea()
+    public static InlineCssTextArea getArea()
     {
-        return textArea;
+        return styledTextArea;
     }
 
     // Установка стиля по умолчанию, пока форматирование только меняет интервалы
     public static void setDefaultStyle()
     {
-        textArea.setFont(WindowsShowcase.APTOS_FONT);
-        textArea.setWrapText(true);
+        styledTextArea.setWrapText(true);
 
-        textArea.setPrefHeight(WindowsShowcase.getAreaSceneHeight() * 0.85);
-        textArea.setPrefWidth(WindowsShowcase.getAreaSceneWidth() * 0.97);
+        styledTextArea.setPrefHeight(WindowsShowcase.getAreaSceneHeight() * 0.85);
+        styledTextArea.setPrefWidth(WindowsShowcase.getAreaSceneWidth() * 0.97);
 
-        setAreaLeading(Double.parseDouble(Pref.getPreferences().get(Pref.LEADING, String.valueOf(ProgramFormatSetter.DEFAULT_LEADING))));
+        setAreaLeading(Integer.parseInt(Pref.getPreferences().get(Pref.LEADING, String.valueOf(ProgramFormatSetter.DEFAULT_LEADING))));
+
+        styledTextArea.requestLayout();
     }
 
-    public static void setAreaLeading(double size)
+    public static void setAreaLeading(int size)
     {
-        textArea.setStyle("-fx-line-spacing: " + size + "px;");
+        String spacingCommand = "-fx-line-spacing: " + size + "px;";
+        String fontCommand = "-fx-font-family: Aptos, sans-serif;\n-fx-font-size: 16px;";
 
-        Node text = textArea.lookup(".text");
-        if (text != null)
-        {
-            text.setStyle("-fx-line-spacing: " + size + "px;");
-        }
+        styledTextArea.setPadding(new Insets(10, 0, 0, 10));
 
-        textArea.requestLayout();
+        styledTextArea.setParagraphInsertionStyle(spacingCommand);
+        styledTextArea.setStyle(fontCommand);
+
+        styledTextArea.replaceText(UserFileProcessor.getContent().toString());
     }
 }

@@ -26,12 +26,13 @@ import java.util.concurrent.ExecutionException;
  * Teera - basic text editor (study project).
  *
  * @author tarqa
- * @version 1.0 02-11-2025
+ * @version 1.0 29-11-2025
  */
 
 public class WindowsShowcase extends Application
 {
     public static final Font APTOS_FONT = Font.font("Aptos", 16);
+    public static final Font TEXT_APTOS_FONT = Font.font("Aptos", 24);
 
     private static Stage mainstage;
 
@@ -79,11 +80,21 @@ public class WindowsShowcase extends Application
 
                         // Устанавливаем файл в настройках (будет убран при сохранении)
                         Pref.getPreferences().put(Pref.FILE_PATH, UserFileProcessor.getUserFilePath());
+
+                        /* ------------------------------------------------------------------
+                         * Exception in thread "JavaFX Application Thread"
+                         * java.lang.IllegalArgumentException: Value too long:
+                         *
+                         * Можно сделать метод разделения на строчки и добавления в  переменные по кусочкам
+                         * (и вывод по кусочкам).
+                         * ----------------------------------------------------------------------
+                         * */
                         // Любые изменения в поле ввода уже считаются несохраненными изменениями
                         Pref.getPreferences().put(Pref.FILE_CONTENT, content);
 
                         // Изменения обозначаем звездочкой
-                        if (getStage() != null && !getStage().getTitle().contains("*")) WindowsShowcase.getStage().setTitle("*" + getStage().getTitle());
+                        if (getStage() != null && !getStage().getTitle().contains("*"))
+                            WindowsShowcase.getStage().setTitle("*" + getStage().getTitle());
                     }
                 });
 
@@ -188,7 +199,5 @@ public class WindowsShowcase extends Application
             el.setFont(APTOS_FONT);
             el.setFocusTraversable(false);
         }
-
     }
-
 }
